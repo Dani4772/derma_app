@@ -9,33 +9,29 @@ import 'package:derma/src/utils/const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'loading_session_page.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
   final Map<String, String> _treatments = {
     'Combination Therapy':
-        'Red Light Therapy (650NM) combined with Blue Light Therapy (430NM) defies aging, acne and most other skin problems by promoting a full range of skin health benefits',
+    'Red Light Therapy (650NM) combined with Blue Light Therapy (430NM) defies aging, acne and most other skin problems by promoting a full range of skin health benefits',
     'Aging Therapy':
-        'Red Light Therapy (650NM) reduces the appearance of wrinkles, increases collagen and elastin production and boosts blood circulation to smooth your skin and defy aging.',
+    'Red Light Therapy (650NM) reduces the appearance of wrinkles, increases collagen and elastin production and boosts blood circulation to smooth your skin and defy aging.',
     'Acne Therapy':
-        'Blue Light Therapy (430NM) is an advanced, painless acne treatment that improves skin texture, minimizes enlarged oil glands and reduces the appearance of acne scars.',
+    'Blue Light Therapy (430NM) is an advanced, painless acne treatment that improves skin texture, minimizes enlarged oil glands and reduces the appearance of acne scars.',
   };
-
   String? _selectedTreatment;
   int _sliderValue = 1;
   bool _vibrationEnabled = false;
-
   @override
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size;
     const primaryColor = AppTheme.pinkColor;
     final _padding = MediaQuery.of(context).padding;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -82,6 +78,13 @@ class _HomePageState extends State<HomePage> {
               child: DropdownButtonFormField<String>(
                 value: _selectedTreatment,
                 decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      width: 1,
+                      color: primaryColor,
+                    ),
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(
@@ -92,17 +95,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 items: _treatments
                     .map((therapyType, therapyDescription) {
-                      return MapEntry(
-                        therapyType,
-                        DropdownMenuItem<String>(
-                          value: therapyType,
-                          child: Text(
-                            therapyType,
-                            style: kDropDownTextStyle,
-                          ),
+                  return MapEntry(
+                    therapyType,
+                    DropdownMenuItem<String>(
+                      value: therapyType,
+                      child: Center(
+                        child: Text(
+                          therapyType,
+                          style: kDropDownTextStyle,
                         ),
-                      );
-                    })
+                      ),
+                    ),
+                  );
+                })
                     .values
                     .toList(),
                 iconSize: 25,
@@ -123,21 +128,18 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-
             SliderWidget(
               sliderValue: _sliderValue,
               sliderValueChanged: (value) {
                 _sliderValue = value;
               },
             ),
-
             CheckBoxWidget(
               checkBoxValue: _vibrationEnabled,
               checkBoxValueChanged: (value) {
                 _vibrationEnabled = value;
               },
             ),
-
             //
             if (_selectedTreatment != null) ...[
               Text(
@@ -214,7 +216,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   void _startAction() {
     if (_selectedTreatment == null) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -225,7 +226,7 @@ class _HomePageState extends State<HomePage> {
     }
     AppNavigation.to(
       context,
-      SessionPage(
+      LoadingSession(
         time: _sliderValue * 60,
         vibrationEnabled: _vibrationEnabled,
         treatmentType: _selectedTreatment!,
@@ -233,3 +234,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

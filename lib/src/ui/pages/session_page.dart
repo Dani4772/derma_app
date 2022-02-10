@@ -4,6 +4,7 @@ import 'package:derma/src/ui/widgets/button_widget.dart';
 import 'package:derma/src/ui/widgets/timer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 import 'package:wakelock/wakelock.dart';
 
 class SessionPage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _SessionPageState extends State<SessionPage>
   late int seconds;
 
   Timer? _vibrationTimer;
-
+ Timer? stopTime;
   @override
   void dispose() {
     debugPrint('Dispose Called');
@@ -39,6 +40,7 @@ class _SessionPageState extends State<SessionPage>
     }
     _controller.dispose();
     Wakelock.disable();
+    ScreenBrightness().resetScreenBrightness();
     super.dispose();
   }
 
@@ -46,6 +48,7 @@ class _SessionPageState extends State<SessionPage>
   void initState() {
     seconds = widget.time;
     Wakelock.enable();
+    ScreenBrightness().setScreenBrightness(1.0);
     if (widget.vibrationEnabled) {
       _vibrationTimer =
           Timer.periodic(const Duration(milliseconds: 1000), (timer) async {
@@ -154,6 +157,9 @@ class _SessionPageState extends State<SessionPage>
               ),
             ),
           ),
+          floatingActionButton: FloatingActionButton(onPressed: (){
+
+          },child: const Icon(Icons.stop)),
         );
       },
     );

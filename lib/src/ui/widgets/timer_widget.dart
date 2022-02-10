@@ -9,9 +9,12 @@ class TimerWidget extends StatefulWidget {
     Key? key,
     required this.seconds,
     required this.context,
+   // required this.stopTimer
   }) : super(key: key);
   final int seconds;
   final BuildContext context;
+ // final Function(Timer) stopTimer;
+
   @override
   _TimerWidgetState createState() => _TimerWidgetState();
 }

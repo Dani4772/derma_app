@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:derma/src/base/themes.dart';
 import 'package:derma/src/ui/modals/cancel_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:perfect_volume_control/perfect_volume_control.dart';
+import 'package:volume_controller/volume_controller.dart';
 
 class ButtonWidget extends StatefulWidget {
   const ButtonWidget({Key? key}) : super(key: key);
@@ -10,8 +14,35 @@ class ButtonWidget extends StatefulWidget {
 }
 
 class _ButtonWidgetState extends State<ButtonWidget> {
-  bool _absorb = false;
+  bool _absorb = true;
+  late StreamSubscription<double> _subscription;
+  @override
+  void initState() {
+    // PerfectVolumeControl.hideUI=false;
+    // _subscription=PerfectVolumeControl.stream.listen((event) {
+    //   _absorb= !_absorb;
+    //   if(mounted){
+    //   setState(() {
+    //   });}
+    //
+    // });
+  //  VolumeController().showSystemUI = false;
+   VolumeController().listener((volume) {
+     VolumeController().showSystemUI=false;
+     setState(() => _absorb = !_absorb
+     );
+   });
 
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    VolumeController().removeListener();
+
+  }
   @override
   Widget build(BuildContext context) {
     debugPrint('Button Rebuild');
