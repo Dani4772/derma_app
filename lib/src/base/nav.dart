@@ -1,0 +1,58 @@
+import 'package:derma/src/ui/pages/home_page.dart';
+// import 'package:derma/src/ui/pages/session_page.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class AppPage {
+  final String _name;
+
+  const AppPage._(this._name);
+
+  static const sessionPage = AppPage._('/session-page');
+  static const homePage = AppPage._('/home-page');
+}
+
+abstract class AppNavigation {
+  static Future<dynamic> to(
+    BuildContext context,
+    Widget page,
+  ) async {
+    return await Navigator.of(context).pushReplacement(
+      CupertinoPageRoute(
+        builder: (context) => page,
+      ),
+    );
+  }
+
+  static Future<dynamic> toPage(
+    BuildContext context,
+    AppPage page,
+  ) async {
+    return await Navigator.of(context).pushNamed(page._name);
+  }
+
+  static Future<dynamic> replaceToPage(
+    BuildContext context,
+    AppPage page,
+  ) async {
+    return await Navigator.of(context).pushReplacementNamed(page._name);
+  }
+
+  static navigateRemoveUntil(
+    BuildContext context,
+    Widget page,
+  ) {
+    Navigator.pushAndRemoveUntil<dynamic>(
+      context,
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext con) => page,
+      ),
+      (route) => false,
+    );
+  }
+
+  static final routes = <String, WidgetBuilder>{
+    AppPage.homePage._name: (context) => const HomePage(),
+    // AppPage.sessionPage._name: (context) => SessionPage(),
+  };
+}
