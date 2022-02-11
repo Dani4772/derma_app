@@ -1,7 +1,6 @@
 import 'package:derma/src/base/assets.dart';
 import 'package:derma/src/base/nav.dart';
 import 'package:derma/src/base/themes.dart';
-import 'package:derma/src/ui/pages/session_page.dart';
 import 'package:derma/src/ui/widgets/button_widget.dart';
 import 'package:derma/src/ui/widgets/check_box_widget.dart';
 import 'package:derma/src/ui/widgets/slider_widget.dart';
@@ -18,11 +17,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final Map<String, String> _treatments = {
     'Combination Therapy':
-    'Red Light Therapy (650NM) combined with Blue Light Therapy (430NM) defies aging, acne and most other skin problems by promoting a full range of skin health benefits',
+    'Red Light Therapy (650NM) combined with Blue Light'
+        ' Therapy (430NM) defies aging, acne and most other skin problems by'
+        ' promoting a full range of skin health benefits.',
     'Aging Therapy':
-    'Red Light Therapy (650NM) reduces the appearance of wrinkles, increases collagen and elastin production and boosts blood circulation to smooth your skin and defy aging.',
+    'Red Light Therapy (650NM) reduces the appearance of wrinkles, '
+        'increases collagen and elastin production and boosts blood circulation '
+        'to smooth your skin and defy aging.',
     'Acne Therapy':
-    'Blue Light Therapy (430NM) is an advanced, painless acne treatment that improves skin texture, minimizes enlarged oil glands and reduces the appearance of acne scars.',
+    'Blue Light Therapy (430NM) is an advanced, painless acne treatment that'
+        ' improves skin texture, minimizes enlarged oil glands and'
+        ' reduces the appearance of acne scars.',
   };
   String? _selectedTreatment;
   int _sliderValue = 1;

@@ -192,9 +192,11 @@ class _SessionPageState extends State<SessionPage>
               if (_isPaused) {
                 _startVibration();
                 _timerController.startTimeout();
+                _controller.repeat();
               } else {
                 _stopVibration();
                 _timerController.pauseTimer();
+                _controller.stop();
               }
               _isPaused = !_isPaused;
               setState(() {});

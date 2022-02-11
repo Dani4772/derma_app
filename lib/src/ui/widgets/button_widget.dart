@@ -4,7 +4,6 @@ import 'package:derma/src/base/themes.dart';
 import 'package:derma/src/ui/modals/cancel_dialog.dart';
 import 'package:derma/src/ui/pages/complete_session_page.dart';
 import 'package:flutter/material.dart';
-import 'package:perfect_volume_control/perfect_volume_control.dart';
 
 class ButtonWidget extends StatefulWidget {
    final Function(bool) waitForAction;
@@ -15,26 +14,6 @@ class ButtonWidget extends StatefulWidget {
 
 class _ButtonWidgetState extends State<ButtonWidget> {
   bool _absorb = true;
-  late StreamSubscription<double> _subscription;
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _subscription = PerfectVolumeControl.stream.listen((value) {
-      //
-      if (mounted) {
-        setState(() {
-          _absorb = !_absorb;
-        });
-      }
-      debugPrint(value.toString());
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
