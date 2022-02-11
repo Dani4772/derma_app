@@ -27,11 +27,12 @@ class _SessionPageState extends State<SessionPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   Animatable<Color?>? color;
-  bool pauseAndResume=true;
+
   late int seconds;
- late Timer pause;
+
   Timer? _vibrationTimer;
- Timer? stopTime;
+  Timer? stopTime;
+
   @override
   void dispose() {
     debugPrint('Dispose Called');
@@ -44,17 +45,32 @@ class _SessionPageState extends State<SessionPage>
     super.dispose();
   }
 
+  late TimerController _timerController;
+
+  void _startVibration() {
+    if (widget.vibrationEnabled) {
+      _vibrationTimer = Timer.periodic(
+        const Duration(milliseconds: 1000),
+        (timer) async {
+          await Vibrate.vibrate();
+        },
+      );
+    }
+  }
+
+  void _stopVibration() {
+    if (widget.vibrationEnabled) {
+      _vibrationTimer!.cancel();
+    }
+  }
+
   @override
   void initState() {
     seconds = widget.time;
+    _timerController = TimerController(seconds: seconds);
     Wakelock.enable();
     ScreenBrightness().setScreenBrightness(1.0);
-    if (widget.vibrationEnabled) {
-      _vibrationTimer =
-          Timer.periodic(const Duration(milliseconds: 1000), (timer) async {
-        await Vibrate.vibrate();
-      });
-    }
+    _startVibration();
 
     late Color _begin, _end;
     switch (widget.treatmentType) {
@@ -149,27 +165,31 @@ class _SessionPageState extends State<SessionPage>
                   Padding(
                     padding: const EdgeInsets.only(bottom: 45.0),
                     child: TimerWidget(
-                      seconds: widget.time,
-                      stopTimer: (p){
-                      pause=p;
-                      },
-
-                      context: context,
+                      timerController: _timerController,
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton(onPressed: (){
-              pause.cancel();
-              setState(() {
-                pauseAndResume=!pauseAndResume;
-              });
-        // debugPrint('$pause');
-          },child: pauseAndResume?const Icon(Icons.pause):const Icon(Icons.play_arrow_rounded)),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              if (_isPaused) {
+                _startVibration();
+                _timerController.startTimeout();
+              } else {
+                _stopVibration();
+                _timerController.pauseTimer();
+              }
+              _isPaused = !_isPaused;
+              setState(() {});
+            },
+            child: Icon(_isPaused ? Icons.play_arrow : Icons.stop),
+          ),
         );
       },
     );
   }
+
+  var _isPaused = false;
 }

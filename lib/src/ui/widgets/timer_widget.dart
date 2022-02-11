@@ -3,65 +3,71 @@ import 'dart:async';
 import 'package:derma/src/base/nav.dart';
 import 'package:derma/src/ui/pages/complete_session_page.dart';
 import 'package:flutter/material.dart';
+import 'package:reusables/reusables.dart';
 
-class TimerWidget extends StatefulWidget {
-  const TimerWidget({
-    Key? key,
-    required this.seconds,
-    required this.context,
-    required this.stopTimer
-   // required this.stopTimer
-  }) : super(key: key);
-  final int seconds;
-  final BuildContext context;
-   final Function(Timer) stopTimer;
+class TimerController extends ChangeNotifier {
+  TimerController({required this.seconds}) {
+    currentSeconds = seconds;
+  }
 
-  @override
-  _TimerWidgetState createState() => _TimerWidgetState();
-}
+  int seconds;
 
-class _TimerWidgetState extends State<TimerWidget> {
   final interval = const Duration(seconds: 1);
-  int currentSeconds = 0;
- late int remainingSeconds;
-  String get timerText =>
-      '${((widget.seconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}:${((widget.seconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
+  late int currentSeconds;
+  late BuildContext context;
 
   late Timer timer;
 
-  startTimeout() {
+  void pauseTimer() => timer.cancel();
+
+  void startTimeout() {
     var duration = interval;
     timer = Timer.periodic(duration, (timer) {
-      setState(() {
-        currentSeconds = timer.tick;
-        remainingSeconds=widget.seconds-timer.tick;
-        if (timer.tick >= widget.seconds) {
-          timer.cancel();
-          AppNavigation.to(context, const CompleteSessionScreen());
-        }
-
-      });
+      currentSeconds--;
+      if (currentSeconds >= seconds) {
+        timer.cancel();
+        AppNavigation.to(context, const CompleteSessionScreen());
+      }
+      notifyListeners();
     });
-
   }
 
-  @override
-  void initState() {
-    startTimeout();
-    widget.stopTimer(timer);
-    super.initState();
-  }
+  String get timerText =>
+      '${(currentSeconds ~/ 60).toString().padLeft(2, '0')}:${(currentSeconds % 60).toString().padLeft(2, '0')}';
 
   @override
   void dispose() {
     timer.cancel();
     super.dispose();
   }
+}
+
+class TimerWidget extends ControlledWidget<TimerController> {
+  const TimerWidget({
+    Key? key,
+    required this.timerController,
+  }) : super(key: key, controller: timerController);
+
+  final TimerController timerController;
+
+  @override
+  _TimerWidgetState createState() => _TimerWidgetState();
+}
+
+class _TimerWidgetState extends State<TimerWidget> with ControlledStateMixin {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      widget.controller.context = context;
+      widget.controller.startTimeout();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      timerText,
+      widget.controller.timerText,
       style: const TextStyle(
         color: Colors.white,
         fontSize: 68,

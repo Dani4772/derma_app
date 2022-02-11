@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.0.2
+  fluttertoast: ^8.0.8
   wakelock: ^0.6.1+1
   flutter_vibrate: ^1.3.0
   google_fonts: ^2.2.0
@@ -42,9 +43,9 @@ dependencies:
   step_progress_indicator: ^1.0.2
   screen_brightness:
   volume_controller: ^2.0.3
-  pausable_timer: ^1.0.0+3
+  reusables:
+    git: 'https://github.com/ArishSultan/reusables'
 
-  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -92,6 +93,6 @@ flutter:
         - asset: assets/fonts/seguibl.ttf
           weight: 600
 flutter_native_splash:
-  background_image: assets/splash.png
+  background_image: assets/Splash_screen.png
   ios: true
   web: false
