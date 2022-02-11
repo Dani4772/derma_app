@@ -7,6 +7,8 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../modals/cancel_dialog.dart';
+
 class SessionPage extends StatefulWidget {
   const SessionPage({
     Key? key,
@@ -110,7 +112,6 @@ class _SessionPageState extends State<SessionPage>
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('Rebuild');
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -126,7 +127,21 @@ class _SessionPageState extends State<SessionPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const ButtonWidget(),
+
+                   ButtonWidget(waitForAction: (isPaused)
+                   {
+                     if (!isPaused) {
+                       _startVibration();
+                       _controller.repeat();
+                       _timerController.startTimeout();
+                     } else {
+                       _stopVibration();
+                       _controller.stop();
+                       _timerController.pauseTimer();
+                     }
+                     isPaused = !isPaused;
+                     setState(() {});
+                   },),
                   SizedBox(
                     height: 216,
                     child: Stack(

@@ -5,8 +5,8 @@ import 'package:derma/src/ui/widgets/button_widget.dart';
 import 'package:derma/src/utils/const.dart';
 import 'package:flutter/material.dart';
 
-cancelDialog(BuildContext context) {
-  showDialog(
+Future<bool> cancelDialog(BuildContext context)async {
+ return await showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
       title: Image.asset(
@@ -32,13 +32,9 @@ cancelDialog(BuildContext context) {
             padding: const EdgeInsets.only(top: 22.0, bottom: 24),
             child: AppButton(
               title: 'YES, CANCEL NOW!',
-              onPressed: () {
-                Navigator.of(context).pop();
-                AppNavigation.to(
-                  context,
-                  const CompleteSessionScreen(),
-                );
-              },
+              onPressed: () =>
+                Navigator.of(context).pop(true),
+
             ),
           ),
           InkWell(
@@ -50,10 +46,10 @@ cancelDialog(BuildContext context) {
                 fontSize: 17,
               ),
             ),
-            onTap: Navigator.of(context).pop,
+            onTap:()=> Navigator.of(context).pop(false),
           ),
         ],
       ),
     ),
-  );
+  )?? false;
 }

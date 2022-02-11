@@ -24,7 +24,8 @@ class TimerController extends ChangeNotifier {
     var duration = interval;
     timer = Timer.periodic(duration, (timer) {
       currentSeconds--;
-      if (currentSeconds >= seconds) {
+      if (currentSeconds <=0) {
+
         timer.cancel();
         AppNavigation.to(context, const CompleteSessionScreen());
       }

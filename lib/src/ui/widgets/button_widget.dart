@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'package:derma/src/base/nav.dart';
 import 'package:derma/src/base/themes.dart';
 import 'package:derma/src/ui/modals/cancel_dialog.dart';
+import 'package:derma/src/ui/pages/complete_session_page.dart';
 import 'package:flutter/material.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 
 class ButtonWidget extends StatefulWidget {
-  const ButtonWidget({Key? key}) : super(key: key);
+   final Function(bool) waitForAction;
+  const ButtonWidget({Key? key,required this.waitForAction}) : super(key: key);
   @override
   _ButtonWidgetState createState() => _ButtonWidgetState();
 }
@@ -45,7 +48,17 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               title: 'CANCEL SESSION',
               primary: Colors.white,
               onPrimary: Colors.black,
-              onPressed: _absorb ? null : () => cancelDialog(context),
+
+              onPressed: _absorb ? null : ()async {
+                widget.waitForAction(true);
+               final _isFinished= await cancelDialog(context);
+               if(_isFinished){
+                 AppNavigation.to(context, const CompleteSessionScreen());
+               }
+               else{
+                 widget.waitForAction(false);
+               }
+              },
             ),
           ),
           const SizedBox(width: 10),
