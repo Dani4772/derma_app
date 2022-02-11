@@ -9,11 +9,12 @@ class TimerWidget extends StatefulWidget {
     Key? key,
     required this.seconds,
     required this.context,
+    required this.stopTimer
    // required this.stopTimer
   }) : super(key: key);
   final int seconds;
   final BuildContext context;
- // final Function(Timer) stopTimer;
+   final Function(Timer) stopTimer;
 
   @override
   _TimerWidgetState createState() => _TimerWidgetState();
@@ -22,7 +23,7 @@ class TimerWidget extends StatefulWidget {
 class _TimerWidgetState extends State<TimerWidget> {
   final interval = const Duration(seconds: 1);
   int currentSeconds = 0;
-
+ late int remainingSeconds;
   String get timerText =>
       '${((widget.seconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}:${((widget.seconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
 
@@ -33,17 +34,21 @@ class _TimerWidgetState extends State<TimerWidget> {
     timer = Timer.periodic(duration, (timer) {
       setState(() {
         currentSeconds = timer.tick;
+        remainingSeconds=widget.seconds-timer.tick;
         if (timer.tick >= widget.seconds) {
           timer.cancel();
           AppNavigation.to(context, const CompleteSessionScreen());
         }
+
       });
     });
+
   }
 
   @override
   void initState() {
     startTimeout();
+    widget.stopTimer(timer);
     super.initState();
   }
 

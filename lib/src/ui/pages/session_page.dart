@@ -27,9 +27,9 @@ class _SessionPageState extends State<SessionPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   Animatable<Color?>? color;
-
+  bool pauseAndResume=true;
   late int seconds;
-
+ late Timer pause;
   Timer? _vibrationTimer;
  Timer? stopTime;
   @override
@@ -150,6 +150,10 @@ class _SessionPageState extends State<SessionPage>
                     padding: const EdgeInsets.only(bottom: 45.0),
                     child: TimerWidget(
                       seconds: widget.time,
+                      stopTimer: (p){
+                      pause=p;
+                      },
+
                       context: context,
                     ),
                   ),
@@ -158,8 +162,12 @@ class _SessionPageState extends State<SessionPage>
             ),
           ),
           floatingActionButton: FloatingActionButton(onPressed: (){
-
-          },child: const Icon(Icons.stop)),
+              pause.cancel();
+              setState(() {
+                pauseAndResume=!pauseAndResume;
+              });
+        // debugPrint('$pause');
+          },child: pauseAndResume?const Icon(Icons.pause):const Icon(Icons.play_arrow_rounded)),
         );
       },
     );
