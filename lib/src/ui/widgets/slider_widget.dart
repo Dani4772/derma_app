@@ -33,7 +33,7 @@ class _SliderWidgetState extends State<SliderWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.only(
-            bottom: 20.5,
+            bottom: 15,
             left: 35,
             right: 37,
           ),
@@ -43,14 +43,14 @@ class _SliderWidgetState extends State<SliderWidget> {
               Text(
                 'Duration'.toUpperCase(),
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   color: primaryColor,
                 ),
               ),
               Text(
                 '$_value:00',
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: primaryColor,
                 ),
@@ -62,7 +62,7 @@ class _SliderWidgetState extends State<SliderWidget> {
           padding: const EdgeInsets.only(
             left: 35,
             right: 37,
-            bottom: 32.5,
+            bottom: 22,
           ),
           child: Slider(
             value: _value.toDouble(),
@@ -73,7 +73,7 @@ class _SliderWidgetState extends State<SliderWidget> {
               widget.sliderValueChanged(_value);
             },
             min: 0,
-            max: 15,
+            max: 45,
           ),
         ),
       ],

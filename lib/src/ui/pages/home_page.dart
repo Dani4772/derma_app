@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         ' reduces the appearance of acne scars.',
   };
   String? _selectedTreatment;
-  int _sliderValue = 1;
+  int _sliderValue = 15;
   bool _vibrationEnabled = false;
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(35, 37, 37, 18),
+              padding: const EdgeInsets.fromLTRB(35, 30, 37, 18),
               child: DropdownButtonFormField<String>(
                 value: _selectedTreatment,
                 decoration: InputDecoration(
@@ -104,11 +104,9 @@ class _HomePageState extends State<HomePage> {
                     therapyType,
                     DropdownMenuItem<String>(
                       value: therapyType,
-                      child: Center(
-                        child: Text(
-                          therapyType,
-                          style: kDropDownTextStyle,
-                        ),
+                      child: Text(
+                        therapyType,
+                        style: kDropDownTextStyle,
                       ),
                     ),
                   );
@@ -118,11 +116,9 @@ class _HomePageState extends State<HomePage> {
                 iconSize: 25,
                 iconDisabledColor: primaryColor,
                 iconEnabledColor: primaryColor,
-                hint: const Center(
-                  child: Text(
-                    'SELECT TREATMENT TYPE',
-                    style: kDropDownTextStyle,
-                  ),
+                hint:const Text(
+                  'SELECT TREATMENT TYPE',
+                  style: kDropDownTextStyle,
                 ),
                 isExpanded: true,
                 onChanged: (newValue) {
@@ -147,10 +143,10 @@ class _HomePageState extends State<HomePage> {
             ),
             //
             if (_selectedTreatment != null) ...[
-              Text(
-                'Description of Treatment'.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 18,
+              const Text(
+                'DESCRIPTION OF TREATMENT',
+                style: TextStyle(
+                  fontSize: 16,
                   fontFamily: 'SegoeBold',
                   color: kDescriptionTextColor,
                 ),
@@ -159,66 +155,68 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                   left: 35.0,
                   right: 37,
-                  top: 22,
-                  bottom: 22,
+                  top: 10,
+                  bottom: 10,
                 ),
                 child: Text(
                   _treatments[_selectedTreatment]!,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: kDescriptionTextColor,
-                    fontSize: 17,
+                    fontSize: 15,
                   ),
                 ),
               ),
-              RichText(
-                text: const TextSpan(
-                  text: 'Learn More at ',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: kDescriptionTextColor,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'DermaApp.io',
-                      style: TextStyle(
-                        color: kDescriptionTextColor,
-                        decoration: TextDecoration.underline,
-                      ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: RichText(
+                  text: const TextSpan(
+                    text: 'Learn More at ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: kDescriptionTextColor,
                     ),
-                  ],
+                    children: [
+                      TextSpan(
+                        text: 'DermaApp.io',
+                        style: TextStyle(
+                          color: kDescriptionTextColor,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 40,
-                left: 36,
-                right: 36,
-                top: 27,
-              ),
-              child: AppButton(
-                title: '',
-                child: Row(children: [
-                  Text(
-                    'Start'.toUpperCase(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  const Icon(
-                    CupertinoIcons.chevron_forward,
-                    size: 18,
-                  ),
-                ], mainAxisAlignment: MainAxisAlignment.center),
-                onPressed: _startAction,
-              ),
-            ),
           ],
         ),
       ),
+      bottomNavigationBar: _selectedTreatment != null?
+    Padding(
+      padding: const EdgeInsets.only(
+        bottom: 15,
+        left: 35,right: 37
+      ),
+      child: AppButton(
+        title: '',
+        child: Row(children: [
+          Text(
+            'Start'.toUpperCase(),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(width: 4),
+          const Icon(
+            CupertinoIcons.chevron_forward,
+            size: 18,
+          ),
+        ], mainAxisAlignment: MainAxisAlignment.center),
+        onPressed: _startAction,
+      ),
+    ):const SizedBox(),
     );
   }
   void _startAction() {

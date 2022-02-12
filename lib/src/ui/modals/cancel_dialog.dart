@@ -1,19 +1,13 @@
-import 'package:derma/src/base/assets.dart';
-import 'package:derma/src/base/nav.dart';
-import 'package:derma/src/ui/pages/complete_session_page.dart';
+
 import 'package:derma/src/ui/widgets/button_widget.dart';
 import 'package:derma/src/utils/const.dart';
 import 'package:flutter/material.dart';
 
 Future<bool> cancelDialog(BuildContext context)async {
  return await showDialog(
-    context: context,
+barrierColor: Colors.black,
+   context: context,
     builder: (ctx) => AlertDialog(
-      title: Image.asset(
-        Assets.logo,
-        height: 40,
-        width: 153,
-      ),
       contentPadding: const EdgeInsets.fromLTRB(29, 26, 22, 37),
       content: Column(
         mainAxisSize: MainAxisSize.min,

@@ -34,7 +34,6 @@ class _SessionPageState extends State<SessionPage>
 
   Timer? _vibrationTimer;
   Timer? stopTime;
-
   @override
   void dispose() {
     debugPrint('Dispose Called');
@@ -77,8 +76,8 @@ class _SessionPageState extends State<SessionPage>
     late Color _begin, _end;
     switch (widget.treatmentType) {
       case 'Combination Therapy':
-        _begin = Colors.red;
-        _end = Colors.blue;
+        _begin = Colors.red.shade900;
+        _end = Colors.blue.shade900;
         break;
       case 'Aging Therapy':
         _begin = Colors.red.shade900;
@@ -187,22 +186,22 @@ class _SessionPageState extends State<SessionPage>
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              if (_isPaused) {
-                _startVibration();
-                _timerController.startTimeout();
-                _controller.repeat();
-              } else {
-                _stopVibration();
-                _timerController.pauseTimer();
-                _controller.stop();
-              }
-              _isPaused = !_isPaused;
-              setState(() {});
-            },
-            child: Icon(_isPaused ? Icons.play_arrow : Icons.stop),
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //     if (_isPaused) {
+          //       _startVibration();
+          //       _timerController.startTimeout();
+          //       _controller.repeat();
+          //     } else {
+          //       _stopVibration();
+          //       _timerController.pauseTimer();
+          //       _controller.stop();
+          //     }
+          //     _isPaused = !_isPaused;
+          //     setState(() {});
+          //   },
+          //   child: Icon(_isPaused ? Icons.play_arrow : Icons.stop),
+          // ),
         );
       },
     );

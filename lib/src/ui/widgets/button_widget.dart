@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:derma/src/base/nav.dart';
 import 'package:derma/src/base/themes.dart';
 import 'package:derma/src/ui/modals/cancel_dialog.dart';
@@ -15,6 +16,7 @@ class ButtonWidget extends StatefulWidget {
 class _ButtonWidgetState extends State<ButtonWidget> {
   bool _absorb = true;
 
+  final player = AudioCache();
   @override
   Widget build(BuildContext context) {
     debugPrint('Button Rebuild');
@@ -22,7 +24,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       padding: const EdgeInsets.fromLTRB(36, 34, 36, 0),
       child: Row(
         children: [
-          Expanded(
+        _absorb==false?  Expanded(
             child: AppButton(
               title: 'CANCEL SESSION',
               primary: Colors.white,
@@ -39,7 +41,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                }
               },
             ),
-          ),
+          ):const Expanded(child: SizedBox(width: double.infinity,)),
           const SizedBox(width: 10),
           AppButton(
             title: '',
@@ -48,6 +50,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             size: const Size(40, 58),
             onPressed: () {
               setState(() {
+                player.play('unlock.mp3');
                 _absorb = !_absorb;
               });
             },

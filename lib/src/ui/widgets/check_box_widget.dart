@@ -1,3 +1,4 @@
+import 'package:derma/src/base/themes.dart';
 import 'package:flutter/material.dart';
 
 class CheckBoxWidget extends StatefulWidget {
@@ -26,12 +27,13 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 36, left: 35, right: 36),
+      padding: const EdgeInsets.only(bottom: 20, left: 35, right: 37),
       child: Row(
         children: [
           Transform.scale(
-            scale: 2.7,
+            scale: 2.5,
             child: Checkbox(
+              side: BorderSide(color: _value? AppTheme.blueColor:AppTheme.pinkColor,width: 0.5),
               value: _value,
               onChanged: (value) {
                 setState(() {
@@ -44,13 +46,13 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
-                left: 19,
+                left: 15,
               ),
               child: Text(
                 'Massage micropulses help promote collagen production for nicer skin',
                 style: TextStyle(
-                  fontSize: 18,
-                  color: Theme.of(context).colorScheme.secondary,
+                  fontSize: 15,
+                  color: _value?Theme.of(context).colorScheme.secondary:Colors.grey,
                 ),
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:derma/src/ui/modals/complete_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,8 @@ class CompleteSessionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final player = AudioCache();
+    player.play('finish.mp3');
     return Scaffold(
       body: Center(
         child: Container(

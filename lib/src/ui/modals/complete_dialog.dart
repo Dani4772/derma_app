@@ -6,11 +6,6 @@ import 'package:derma/src/utils/const.dart';
 import 'package:flutter/material.dart';
 
 completeDialog(BuildContext context) => AlertDialog(
-      title: Image.asset(
-        Assets.logo,
-        height: 40,
-        width: 153,
-      ),
       contentPadding: const EdgeInsets.fromLTRB(29, 19, 22, 31),
       content: Column(
         mainAxisSize: MainAxisSize.min,

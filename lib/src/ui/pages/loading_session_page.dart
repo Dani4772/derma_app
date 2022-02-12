@@ -26,7 +26,7 @@ class _LoadingSessionState extends State<LoadingSession> {
  @override
   void initState() {
     // TODO: implement initState
-   timer=Timer.periodic(const Duration(seconds: 1), (timer) {
+   timer=Timer.periodic(const Duration(milliseconds: 20), (timer) {
      if(progress==100){
        AppNavigation.to(
          context,
@@ -36,9 +36,10 @@ class _LoadingSessionState extends State<LoadingSession> {
            treatmentType: widget.treatmentType,
          ),
        );
+       timer.cancel();
      }
      else{
-      progress += 20;
+      progress += 1;
      }
 
      setState(() {
@@ -79,7 +80,7 @@ class _LoadingSessionState extends State<LoadingSession> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 30,right: 102,left: 111,bottom:40),
+              padding: const EdgeInsets.only(top: 25,right: 102,left: 111,bottom:30),
               child: Image.asset('assets/loading.png',width: 215,height: 272.68,),
             ),
             Padding(
@@ -107,7 +108,7 @@ class _LoadingSessionState extends State<LoadingSession> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: kDescriptionTextColor,
-                  fontSize: 17,
+                  fontSize: 15,
                 ),
               ),
             ),
