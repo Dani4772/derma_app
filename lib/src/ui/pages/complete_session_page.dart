@@ -3,12 +3,16 @@ import 'package:derma/src/ui/modals/complete_dialog.dart';
 import 'package:flutter/material.dart';
 
 class CompleteSessionScreen extends StatelessWidget {
-  const CompleteSessionScreen({Key? key}) : super(key: key);
+   CompleteSessionScreen({Key? key}) : super(key: key){
+     final player = AudioCache();
+     player.play('finish.mp3',volume: 0.5);
+   }
+
+
 
   @override
   Widget build(BuildContext context) {
-    final player = AudioCache();
-    player.play('finish.mp3');
+
     return Scaffold(
       body: Center(
         child: Container(
@@ -24,7 +28,17 @@ class CompleteSessionScreen extends StatelessWidget {
               ],
             ),
           ),
-          child: completeDialog(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/completelogo.png',
+                width: 160,
+                height: 50,
+              ),
+              completeDialog(context),
+            ],
+          )
         ),
       ),
     );

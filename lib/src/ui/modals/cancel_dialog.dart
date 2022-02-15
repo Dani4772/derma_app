@@ -17,7 +17,7 @@ barrierColor: Colors.black,
             'ARE YOU SURE YOU WANT TO CANCEL THIS SESSION?',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontFamily: 'SegoeBold',
+             fontFamily: 'blackbold',
               fontSize: 18,
               color: kDescriptionTextColor,
             ),

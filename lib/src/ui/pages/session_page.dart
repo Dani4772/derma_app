@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:derma/src/base/nav.dart';
+import 'package:derma/src/ui/pages/complete_session_page.dart';
 import 'package:derma/src/ui/widgets/button_widget.dart';
 import 'package:derma/src/ui/widgets/timer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:wakelock/wakelock.dart';
@@ -26,7 +29,7 @@ class SessionPage extends StatefulWidget {
 }
 
 class _SessionPageState extends State<SessionPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late AnimationController _controller;
   Animatable<Color?>? color;
 
@@ -34,15 +37,12 @@ class _SessionPageState extends State<SessionPage>
 
   Timer? _vibrationTimer;
   Timer? stopTime;
+  late AppLifecycleState _notification;
+
   @override
   void dispose() {
     debugPrint('Dispose Called');
-    if (widget.vibrationEnabled) {
-      _vibrationTimer!.cancel();
-    }
-    _controller.dispose();
-    Wakelock.disable();
-    ScreenBrightness().resetScreenBrightness();
+    _dispose();
     super.dispose();
   }
 
@@ -51,7 +51,7 @@ class _SessionPageState extends State<SessionPage>
   void _startVibration() {
     if (widget.vibrationEnabled) {
       _vibrationTimer = Timer.periodic(
-        const Duration(milliseconds: 1000),
+        const Duration(milliseconds: 300),
         (timer) async {
           await Vibrate.vibrate();
         },
@@ -72,18 +72,19 @@ class _SessionPageState extends State<SessionPage>
     Wakelock.enable();
     ScreenBrightness().setScreenBrightness(1.0);
     _startVibration();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     late Color _begin, _end;
     switch (widget.treatmentType) {
-      case 'Combination Therapy':
+      case 'COMBINATION THERAPY':
         _begin = Colors.red.shade900;
         _end = Colors.blue.shade900;
         break;
-      case 'Aging Therapy':
+      case 'ANTI-AGING THERAPY':
         _begin = Colors.red.shade900;
         _end = Colors.red.shade300;
         break;
-      case 'Acne Therapy':
+      case 'ACNE THERAPY':
         _begin = Colors.blue.shade900;
         _end = Colors.blue.shade300;
         break;
@@ -106,7 +107,57 @@ class _SessionPageState extends State<SessionPage>
       ),
       vsync: this,
     )..repeat();
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
+  }
+  Future<void> start() async{
+    _startVibration();
+    _controller.repeat();
+    _timerController.startTimeout();
+}
+  Future<void> stop() async{
+    _stopVibration();
+    _controller.stop();
+    _timerController.pauseTimer();
+  }
+
+   Future<void> _dispose() async {
+     if (widget.vibrationEnabled) {
+       _vibrationTimer!.cancel();
+     }
+     _controller.dispose();
+     Wakelock.disable();
+     ScreenBrightness().resetScreenBrightness();
+     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+     WidgetsBinding.instance?.removeObserver(this);
+   }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state)async {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.inactive:
+       // _dispose();
+        debugPrint('appLifeCycleState inactive');
+        break;
+      case AppLifecycleState.resumed:
+        final result=await cancelDialog(context);
+        if(result){
+          AppNavigation.to(context, CompleteSessionScreen());
+        }
+        start();
+        debugPrint('appLifeCycleState resumed');
+        break;
+      case AppLifecycleState.paused:
+        stop();
+
+        break;
+      case AppLifecycleState.detached:
+        debugPrint('appLifeCycleState detached');
+        break;
+      default:
+        debugPrint('Default');
+        break;
+    }
   }
 
   @override
@@ -130,13 +181,9 @@ class _SessionPageState extends State<SessionPage>
                    ButtonWidget(waitForAction: (isPaused)
                    {
                      if (!isPaused) {
-                       _startVibration();
-                       _controller.repeat();
-                       _timerController.startTimeout();
+                       start();
                      } else {
-                       _stopVibration();
-                       _controller.stop();
-                       _timerController.pauseTimer();
+                      stop();
                      }
                      isPaused = !isPaused;
                      setState(() {});
@@ -151,7 +198,7 @@ class _SessionPageState extends State<SessionPage>
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: Colors.white,
-                              width: 2,
+                              width: 1,
                             ),
                           ),
                         ),
@@ -159,7 +206,7 @@ class _SessionPageState extends State<SessionPage>
                           child: SizedBox(
                             width: 215,
                             child: Divider(
-                              thickness: 2,
+                              height: 1,
                               color: Colors.white,
                             ),
                           ),
@@ -168,7 +215,7 @@ class _SessionPageState extends State<SessionPage>
                           child: SizedBox(
                             height: 215,
                             child: VerticalDivider(
-                              thickness: 2,
+                              width: 1,
                               color: Colors.white,
                             ),
                           ),
@@ -186,26 +233,10 @@ class _SessionPageState extends State<SessionPage>
               ),
             ),
           ),
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: () {
-          //     if (_isPaused) {
-          //       _startVibration();
-          //       _timerController.startTimeout();
-          //       _controller.repeat();
-          //     } else {
-          //       _stopVibration();
-          //       _timerController.pauseTimer();
-          //       _controller.stop();
-          //     }
-          //     _isPaused = !_isPaused;
-          //     setState(() {});
-          //   },
-          //   child: Icon(_isPaused ? Icons.play_arrow : Icons.stop),
-          // ),
+
         );
       },
     );
   }
 
-  var _isPaused = false;
 }

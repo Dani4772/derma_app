@@ -1,6 +1,8 @@
 import 'package:derma/src/base/themes.dart';
 import 'package:flutter/material.dart';
 
+import 'custom_checkbocx.dart';
+
 class CheckBoxWidget extends StatefulWidget {
   const CheckBoxWidget({
     Key? key,
@@ -30,18 +32,21 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
       padding: const EdgeInsets.only(bottom: 20, left: 35, right: 37),
       child: Row(
         children: [
-          Transform.scale(
-            scale: 2.5,
-            child: Checkbox(
-              side: BorderSide(color: _value? AppTheme.blueColor:AppTheme.pinkColor,width: 0.5),
-              value: _value,
-              onChanged: (value) {
-                setState(() {
-                  _value = value!;
-                });
-                widget.checkBoxValueChanged(_value);
-              },
-            ),
+          CustomCheckbox(
+            iconSize: 30,
+            isChecked: _value,
+            size: 44,
+            borderColor:  _value? AppTheme.blueColor:Colors.grey,
+            checkIcon: const Icon(Icons.check),
+            onChange: (value){
+              _value = value!;
+              setState(() {
+
+              });
+              widget.checkBoxValueChanged(_value);
+            },
+            selectedColor: AppTheme.blueColor,
+            selectedIconColor: Colors.white,
           ),
           Expanded(
             child: Padding(

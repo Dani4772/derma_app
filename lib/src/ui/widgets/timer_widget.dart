@@ -27,7 +27,7 @@ class TimerController extends ChangeNotifier {
       if (currentSeconds <=0) {
 
         timer.cancel();
-        AppNavigation.to(context, const CompleteSessionScreen());
+        AppNavigation.to(context,  CompleteSessionScreen());
       }
       notifyListeners();
     });

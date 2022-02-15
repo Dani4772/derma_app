@@ -18,6 +18,11 @@ class _ButtonWidgetState extends State<ButtonWidget> {
 
   final player = AudioCache();
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     debugPrint('Button Rebuild');
     return Padding(
@@ -34,7 +39,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 widget.waitForAction(true);
                final _isFinished= await cancelDialog(context);
                if(_isFinished){
-                 AppNavigation.to(context, const CompleteSessionScreen());
+                 AppNavigation.to(context,  CompleteSessionScreen());
                }
                else{
                  widget.waitForAction(false);
@@ -50,7 +55,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             size: const Size(40, 58),
             onPressed: () {
               setState(() {
-                player.play('unlock.mp3');
+                player.play('unlock.mp3',volume: 0.5);
                 _absorb = !_absorb;
               });
             },

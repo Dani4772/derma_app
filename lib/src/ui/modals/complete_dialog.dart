@@ -6,6 +6,7 @@ import 'package:derma/src/utils/const.dart';
 import 'package:flutter/material.dart';
 
 completeDialog(BuildContext context) => AlertDialog(
+
       contentPadding: const EdgeInsets.fromLTRB(29, 19, 22, 31),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -14,7 +15,7 @@ completeDialog(BuildContext context) => AlertDialog(
             'Session Complete!'.toUpperCase(),
             style: const TextStyle(
               color: kDescriptionTextColor,
-              fontFamily: 'SegoeBold',
+              fontFamily: 'blackbold',
               fontSize: 18,
             ),
           ),

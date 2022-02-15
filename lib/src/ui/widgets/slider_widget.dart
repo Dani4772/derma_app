@@ -45,13 +45,14 @@ class _SliderWidgetState extends State<SliderWidget> {
                 style: const TextStyle(
                   fontSize: 16,
                   color: primaryColor,
+                  fontWeight: FontWeight.bold
                 ),
               ),
               Text(
                 '$_value:00',
                 style: const TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: 'SegoeBold',
                   color: primaryColor,
                 ),
               ),
@@ -65,6 +66,7 @@ class _SliderWidgetState extends State<SliderWidget> {
             bottom: 22,
           ),
           child: Slider(
+
             value: _value.toDouble(),
             onChanged: (value) {
               setState(() {

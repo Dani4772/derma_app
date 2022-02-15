@@ -6,7 +6,7 @@ final _sliderTheme = SliderThemeData(
     overlayRadius: 2,
   ),
   trackShape: _CustomTrackShape(),
-  trackHeight: 1.5,
+  trackHeight: 3,
   activeTrackColor: AppTheme.blueColor,
   inactiveTrackColor: AppTheme.pinkColor,
   thumbColor: AppTheme.blueColor,

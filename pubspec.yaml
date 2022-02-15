@@ -40,6 +40,7 @@ dependencies:
   step_progress_indicator: ^1.0.2
   screen_brightness:
   audioplayers: ^0.20.1
+  url_launcher: ^6.0.20
   reusables:
     git: 'https://github.com/ArishSultan/reusables'
 
@@ -87,9 +88,12 @@ flutter:
         - asset: assets/fonts/segoeui.TTF
     - family: SegoeBold
       fonts:
-        - asset: assets/fonts/seguibl.ttf
-          weight: 600
+        - asset: assets/fonts/segoeuib.ttf
+    - family: blackbold
+      fonts:
+        - asset: assets/fonts/SEGUIBL1.TTF
+
 flutter_native_splash:
-  background_image: assets/Splash_screen.png
+  background_image: assets/newsplash.png
   ios: true
   web: false

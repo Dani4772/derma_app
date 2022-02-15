@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:derma/src/base/themes.dart';
 import 'package:derma/src/ui/pages/session_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -71,8 +72,8 @@ class _LoadingSessionState extends State<LoadingSession> {
           color: Colors.white,
           child: Image.asset(
             Assets.logo,
-            height: 40,
-            width: 153,
+            height: 30,
+            width: 133,
           ),
         ),
       ),
@@ -89,7 +90,7 @@ class _LoadingSessionState extends State<LoadingSession> {
                 'Instructions:'.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 18,
-                  fontFamily: 'SegoeBold',
+                  fontFamily: 'blackbold',
                   color: kDescriptionTextColor,
                 ),
               ),
@@ -104,7 +105,7 @@ class _LoadingSessionState extends State<LoadingSession> {
               child: Text(
                 'Make sure your phone and skin are clean and dry,then move your screen along the surface '
                     'of your skin slowly for the duration of your treatment-paying special attention to '
-                    'any areas of concerns',
+                    'any areas of concerns.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: kDescriptionTextColor,
@@ -115,6 +116,7 @@ class _LoadingSessionState extends State<LoadingSession> {
            Padding(
             padding: const EdgeInsets.only(left: 33.1,right: 33.1,bottom: 23),
              child: StepProgressIndicator(
+               roundedEdges: const Radius.circular(10),
                totalSteps: 100,
                currentStep: progress,
                size: 15,
@@ -135,7 +137,8 @@ class _LoadingSessionState extends State<LoadingSession> {
           ),
             const Padding(
               padding: EdgeInsets.only(left: 55,right: 68),
-              child: Text('Loading... Your session will begin soon',style: TextStyle(color: Color(0xff29bcef,),fontSize: 17,),textAlign: TextAlign.center,),
+              child: Text('Optimizing... Your session will begin soon',style:
+              TextStyle(color: Color(0xff29bcef,),fontSize: 17,),textAlign: TextAlign.center,),
             )
           ],
         ),
