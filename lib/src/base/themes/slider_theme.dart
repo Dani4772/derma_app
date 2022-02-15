@@ -71,7 +71,7 @@ class _Thumb extends SliderComponentShape {
     );
     canvas.drawCircle(
       center,
-      radius,
+      radius+1.5,
       Paint()..color = color,
     );
   }

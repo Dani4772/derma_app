@@ -37,7 +37,6 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
             isChecked: _value,
             size: 44,
             borderColor:  _value? AppTheme.blueColor:Colors.grey,
-            checkIcon: const Icon(Icons.check),
             onChange: (value){
               _value = value!;
               setState(() {

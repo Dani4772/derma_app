@@ -8,7 +8,6 @@ class CustomCheckbox extends StatefulWidget {
   final Color selectedColor;
   final Color selectedIconColor;
   final Color borderColor;
-  final Icon checkIcon;
 
   CustomCheckbox(
       {required this.isChecked,
@@ -18,7 +17,7 @@ class CustomCheckbox extends StatefulWidget {
         required this.selectedColor,
         required this.selectedIconColor,
         required this.borderColor,
-        required this.checkIcon});
+        });
 
   @override
   _CustomCheckboxState createState() => _CustomCheckboxState();
@@ -58,11 +57,10 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
         width: widget.size ,
         height: widget.size ,
         child: _isSelected
-            ? Icon(
-          Icons.check,
-          color: widget.selectedIconColor ,
-          size: widget.iconSize,
-        )
+            ? Padding(
+              padding: const EdgeInsets.all(10),
+              child: Image.asset('assets/tick.png',),
+            )
             : null,
       ),
     );

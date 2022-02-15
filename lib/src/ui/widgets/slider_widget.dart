@@ -75,6 +75,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                 ),
               ),
               Slider(
+
                 value: _value.toDouble(),
                 onChanged: (value) {
                   setState(() {

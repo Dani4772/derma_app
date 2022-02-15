@@ -8,7 +8,7 @@ Future<bool> cancelDialog(BuildContext context)async {
 barrierColor: Colors.black,
    context: context,
     builder: (ctx) => AlertDialog(
-      contentPadding: const EdgeInsets.fromLTRB(29, 26, 22, 37),
+      contentPadding: const EdgeInsets.fromLTRB(29, 45, 22, 37),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
