@@ -19,10 +19,12 @@ class CompleteSessionScreen extends StatelessWidget {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
+              end: Alignment.bottomCenter,
+              tileMode: TileMode.clamp,
               colors: [
-                Colors.blue,
-                Colors.pink,
+                Color(0xff28C3F3),
+                Color(0xff8171B7),
+                Color(0xffFA163F),
                 // Theme.of(context).colorScheme.secondary,
                 // Theme.of(context).primaryColor,
               ],
@@ -33,9 +35,10 @@ class CompleteSessionScreen extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/completelogo.png',
-                width: 160,
+                width: 284,
                 height: 50,
               ),
+              const SizedBox(height: 30.5),
               completeDialog(context),
             ],
           )

@@ -8,7 +8,7 @@ final _sliderTheme = SliderThemeData(
   trackShape: _CustomTrackShape(),
   trackHeight: 3,
   activeTrackColor: AppTheme.blueColor,
-  inactiveTrackColor: AppTheme.pinkColor,
+  inactiveTrackColor: Colors.transparent,
   thumbColor: AppTheme.blueColor,
 );
 

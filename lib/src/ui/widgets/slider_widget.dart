@@ -45,7 +45,6 @@ class _SliderWidgetState extends State<SliderWidget> {
                 style: const TextStyle(
                   fontSize: 16,
                   color: primaryColor,
-                  fontWeight: FontWeight.bold
                 ),
               ),
               Text(
@@ -65,17 +64,28 @@ class _SliderWidgetState extends State<SliderWidget> {
             right: 37,
             bottom: 22,
           ),
-          child: Slider(
-
-            value: _value.toDouble(),
-            onChanged: (value) {
-              setState(() {
-                _value = value.toInt();
-              });
-              widget.sliderValueChanged(_value);
-            },
-            min: 0,
-            max: 45,
+          child: Stack(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 9, left: 1),
+                child: Divider(
+                  color: AppTheme.pinkColor,
+                  height: 0.5,
+                  thickness: 1,
+                ),
+              ),
+              Slider(
+                value: _value.toDouble(),
+                onChanged: (value) {
+                  setState(() {
+                    _value = value.toInt();
+                  });
+                  widget.sliderValueChanged(_value);
+                },
+                min: 0,
+                max: 45,
+              ),
+            ],
           ),
         ),
       ],
