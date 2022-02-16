@@ -217,7 +217,7 @@ class _SessionPageState extends State<SessionPage>
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: Colors.white,
-                                width: 1,
+                                width: 0.5,
                               ),
                             ),
                           ),
