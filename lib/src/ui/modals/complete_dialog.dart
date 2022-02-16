@@ -33,20 +33,20 @@ completeDialog(BuildContext context) => AlertDialog(
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 33),
-            height: 300,
-            //height: 367,
-            //width: 305
-            width: 270,
-            color: Colors.black,
-            child: const Center(
-              child: Text('AD',style: TextStyle(fontSize: 68,color: Colors.white),),
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(bottom: 33),
+          //   height: 300,
+          //   //height: 367,
+          //   //width: 305
+          //   width: 270,
+          //   color: Colors.black,
+          //   child: const Center(
+          //     child: Text('AD',style: TextStyle(fontSize: 68,color: Colors.white),),
+          //   ),
+          // ),
           AppButton(
             title: 'I FEEL GREAT!',
-            onPressed: () => AppNavigation.to(context, const HomePage()),
+            onPressed: () => AppNavigation.replace(context, const HomePage()),
           ),
         ],
       ),

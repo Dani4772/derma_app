@@ -43,6 +43,7 @@ class _SessionPageState extends State<SessionPage>
   void dispose() {
     debugPrint('Dispose Called');
     _dispose();
+    print('''bcc''');
     super.dispose();
   }
 
@@ -121,6 +122,7 @@ class _SessionPageState extends State<SessionPage>
     _timerController.pauseTimer();
   }
 
+
    Future<void> _dispose() async {
      if (widget.vibrationEnabled) {
        _vibrationTimer!.cancel();
@@ -162,80 +164,98 @@ class _SessionPageState extends State<SessionPage>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Scaffold(
-          backgroundColor: color!.evaluate(
-            AlwaysStoppedAnimation(
-              _controller.value,
-            ),
-          ),
-          body: Center(
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+    return WillPopScope(
+      onWillPop: ()async {
+        await stop();
+        final _finished=await cancelDialog(context);
+        if(!_finished){
+          start();
+          return _finished;
 
-                   ButtonWidget(waitForAction: (isPaused)
-                   {
-                     if (!isPaused) {
-                       start();
-                     } else {
-                      stop();
-                     }
-                     isPaused = !isPaused;
-                     setState(() {});
-                   },),
-                  SizedBox(
-                    height: 216,
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: 216,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        const Center(
-                          child: SizedBox(
-                            width: 215,
-                            child: Divider(
-                              height: 1,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        const Center(
-                          child: SizedBox(
-                            height: 215,
-                            child: VerticalDivider(
-                              width: 1,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 45.0),
-                    child: TimerWidget(
-                      timerController: _timerController,
-                    ),
-                  ),
-                ],
+        }
+        else{
+
+          await stop();
+          AppNavigation.navigateRemoveUntil(context, CompleteSessionScreen());
+          return !_finished;
+        }
+        return _finished;
+      },
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Scaffold(
+            backgroundColor: color!.evaluate(
+              AlwaysStoppedAnimation(
+                _controller.value,
               ),
             ),
-          ),
+            body: Center(
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
 
-        );
-      },
+                     ButtonWidget(waitForAction: (isPaused)
+                     {
+                       if (!isPaused) {
+                         start();
+                       } else {
+                        stop();
+                       }
+                       isPaused = !isPaused;
+                       setState(() {});
+                     },),
+                    SizedBox(
+                      height: 216,
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: 216,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 1,
+                              ),
+                            ),
+                          ),
+                          const Center(
+                            child: SizedBox(
+                              width: 215,
+                              child: Divider(
+                                height: 1,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const Center(
+                            child: SizedBox(
+                              height: 215,
+                              child: VerticalDivider(
+                                width: 1,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 45.0),
+                      child: TimerWidget(
+                        timerController: _timerController,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+          );
+        },
+      ),
     );
   }
 

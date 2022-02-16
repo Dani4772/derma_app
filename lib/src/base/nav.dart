@@ -17,12 +17,24 @@ abstract class AppNavigation {
     BuildContext context,
     Widget page,
   ) async {
+    return await Navigator.of(context).push(
+      CupertinoPageRoute(
+        builder: (context) => page,
+      ),
+    );
+  }
+
+  static Future<dynamic> replace(
+      BuildContext context,
+      Widget page,
+      ) async {
     return await Navigator.of(context).pushReplacement(
       CupertinoPageRoute(
         builder: (context) => page,
       ),
     );
   }
+
 
   static Future<dynamic> toPage(
     BuildContext context,
