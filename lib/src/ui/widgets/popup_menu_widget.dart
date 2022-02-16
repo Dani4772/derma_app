@@ -319,6 +319,7 @@ class PopupMenuItemState<T, W extends PopupMenuItem<T>> extends State<W> {
 
   @override
   Widget build(BuildContext context) {
+
     final ThemeData theme = Theme.of(context);
     final PopupMenuThemeData popupMenuTheme = PopupMenuTheme.of(context);
     TextStyle style = widget.textStyle ?? popupMenuTheme.textStyle ?? theme.textTheme.subtitle1!;
@@ -559,11 +560,12 @@ class _PopupMenu<T> extends StatelessWidget {
     final CurveTween opacity = CurveTween(curve: const Interval(0.0, 1.0 / 3.0));
     final CurveTween width = CurveTween(curve: Interval(0.0, unit));
     final CurveTween height = CurveTween(curve: Interval(0.0, unit * route.items.length));
+    final widthOf=MediaQuery.of(context).size.width-70;
 
     final Widget child = ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: _kMenuMinWidth,
-        maxWidth: _kMenuMaxWidth,
+      constraints:  BoxConstraints(
+        minWidth: widthOf,
+        maxWidth: widthOf,
       ),
       child: IntrinsicWidth(
         stepWidth: _kMenuWidthStep,
