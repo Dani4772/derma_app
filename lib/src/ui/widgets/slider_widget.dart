@@ -83,7 +83,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                   });
                   widget.sliderValueChanged(_value);
                 },
-                min: 0,
+                min: 1,
                 max: 45,
               ),
             ],
