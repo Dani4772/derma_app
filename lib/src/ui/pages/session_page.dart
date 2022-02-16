@@ -103,7 +103,7 @@ class _SessionPageState extends State<SessionPage>
     );
     _controller = AnimationController(
       duration: const Duration(
-        milliseconds: 500,
+        milliseconds: 200,
       ),
       vsync: this,
     )..repeat();

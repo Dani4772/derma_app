@@ -41,6 +41,7 @@ dependencies:
   screen_brightness:
   audioplayers: ^0.20.1
   url_launcher: ^6.0.20
+  font_awesome_flutter: ^9.2.0
   reusables:
     git: 'https://github.com/ArishSultan/reusables'
 

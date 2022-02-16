@@ -110,6 +110,7 @@ class _LoadingSessionState extends State<LoadingSession> {
                 style: TextStyle(
                   color: kDescriptionTextColor,
                   fontSize: 15,
+
                 ),
               ),
             ),

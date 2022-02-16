@@ -16,21 +16,32 @@ completeDialog(BuildContext context) => AlertDialog(
             style: const TextStyle(
               color: kDescriptionTextColor,
               fontFamily: 'blackbold',
-              fontSize: 18,
+              fontSize: 17,
             ),
           ),
           const Padding(
             padding: EdgeInsets.only(
               top: 22.0,
-              bottom: 30,
+              bottom: 21,
             ),
             child: Text(
               'Your Derma app session is complete. I must say, your skin is looking fabulous!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: kDescriptionTextColor,
-                fontSize: 17,
+                fontSize: 16,
               ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 33),
+            height: 300,
+            //height: 367,
+            //width: 305
+            width: 270,
+            color: Colors.black,
+            child: const Center(
+              child: Text('AD',style: TextStyle(fontSize: 68,color: Colors.white),),
             ),
           ),
           AppButton(

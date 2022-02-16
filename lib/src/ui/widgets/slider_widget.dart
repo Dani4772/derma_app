@@ -62,12 +62,12 @@ class _SliderWidgetState extends State<SliderWidget> {
           padding: const EdgeInsets.only(
             left: 35,
             right: 37,
-            bottom: 22,
+            bottom: 20,
           ),
           child: Stack(
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 9, left: 1),
+                padding: EdgeInsets.only(top: 7, left: 1),
                 child: Divider(
                   color: AppTheme.pinkColor,
                   height: 0.5,

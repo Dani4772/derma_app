@@ -29,13 +29,13 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20, left: 35, right: 37),
+      padding: const EdgeInsets.only(bottom: 27.3, left: 35, right: 37),
       child: Row(
         children: [
           CustomCheckbox(
             iconSize: 30,
             isChecked: _value,
-            size: 44,
+            size: 46,
             borderColor:  _value? AppTheme.blueColor:Colors.grey,
             onChange: (value){
               _value = value!;

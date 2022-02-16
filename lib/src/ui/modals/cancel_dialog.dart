@@ -18,7 +18,7 @@ barrierColor: Colors.black,
             textAlign: TextAlign.center,
             style: TextStyle(
              fontFamily: 'blackbold',
-              fontSize: 18,
+              fontSize: 17,
               color: kDescriptionTextColor,
             ),
           ),

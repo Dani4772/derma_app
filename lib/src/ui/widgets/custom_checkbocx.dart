@@ -56,11 +56,9 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
             )),
         width: widget.size ,
         height: widget.size ,
+        padding: const EdgeInsets.fromLTRB(11.3, 14, 10.1, 11),
         child: _isSelected
-            ? Padding(
-              padding: const EdgeInsets.all(10),
-              child: Image.asset('assets/tick.png',),
-            )
+            ? Image.asset('assets/tick.png',)
             : null,
       ),
     );

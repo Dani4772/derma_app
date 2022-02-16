@@ -33,7 +33,7 @@ class _CustomTrackShape extends RoundedRectSliderTrackShape {
 class _Thumb extends SliderComponentShape {
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return const Size.fromRadius(10);
+    return const Size.fromRadius(7);
   }
 
   @override
@@ -66,7 +66,7 @@ class _Thumb extends SliderComponentShape {
 
     canvas.drawCircle(
       center,
-      radius + 1.5,
+      radius + 3,
       Paint()..color = Colors.white,
     );
     canvas.drawCircle(
