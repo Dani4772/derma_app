@@ -39,7 +39,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
                 widget.waitForAction(true);
                final _isFinished= await cancelDialog(context);
                if(_isFinished){
-                 AppNavigation.replace(context,  CompleteSessionScreen());
+                 AppNavigation.navigateRemoveUntil(context,  CompleteSessionScreen());
                }
                else{
                  widget.waitForAction(false);
