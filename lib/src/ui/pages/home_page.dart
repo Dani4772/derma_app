@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(100.0 + _padding.top),
         child: Container(
           padding: EdgeInsets.only(
-            bottom: 28,
+            bottom: 10,
             top: 32 + _padding.top,
           ),
           color: Colors.white,
@@ -64,12 +64,12 @@ class _HomePageState extends State<HomePage> {
               width: double.infinity,
               alignment: Alignment.center,
               decoration: const BoxDecoration(
-                color: Colors.black,
+               // color: Colors.black,
 
-                //   image: DecorationImage(
-                //   image: AssetImage('assets/video.png',),
-                //     fit: BoxFit.cover
-                // )
+                  image: DecorationImage(
+                  image: AssetImage('assets/video.png',),
+                    fit: BoxFit.cover
+                )
               ),
               child: Container(
                 height: 89,
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 child: const Icon(
                   Icons.play_arrow,
                   size: 70,
-                  color: primaryColor,
+                  color: Color(0xffEB008B),
                 ),
               ),
             ),

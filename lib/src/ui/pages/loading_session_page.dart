@@ -139,7 +139,7 @@ class _LoadingSessionState extends State<LoadingSession> {
             const Padding(
               padding: EdgeInsets.only(left: 55,right: 68),
               child: Text('Optimizing... Your session will begin soon',style:
-              TextStyle(color: Color(0xff29bcef,),fontSize: 17,),textAlign: TextAlign.center,),
+              TextStyle(color: Color(0xff29bcef,),fontSize: 13,),textAlign: TextAlign.center,),
             )
           ],
         ),

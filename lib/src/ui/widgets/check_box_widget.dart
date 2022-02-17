@@ -29,7 +29,7 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 27.3, left: 35, right: 37),
+      padding: const EdgeInsets.only(bottom: 37.3, left: 35, right: 37),
       child: Row(
         children: [
           CustomCheckbox(

@@ -55,7 +55,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
             size: const Size(40, 58),
             onPressed: () {
               setState(() {
-                player.play('unlock.mp3',volume: 0.5);
+                player.play('unlock.mp3',volume: 0.09);
                 _absorb = !_absorb;
               });
             },

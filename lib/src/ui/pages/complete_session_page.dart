@@ -8,7 +8,7 @@ import 'home_page.dart';
 class CompleteSessionScreen extends StatelessWidget {
    CompleteSessionScreen({Key? key}) : super(key: key){
      final player = AudioCache();
-     player.play('finish.mp3',volume: 0.5);
+     player.play('finish.mp3',volume: 0.09);
    }
 
 

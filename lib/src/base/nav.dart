@@ -1,6 +1,4 @@
 import 'package:derma/src/ui/pages/home_page.dart';
-// import 'package:derma/src/ui/pages/session_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppPage {
@@ -18,7 +16,7 @@ abstract class AppNavigation {
     Widget page,
   ) async {
     return await Navigator.of(context).push(
-      CupertinoPageRoute(
+      MaterialPageRoute(
         builder: (context) => page,
       ),
     );
@@ -29,7 +27,7 @@ abstract class AppNavigation {
       Widget page,
       ) async {
     return await Navigator.of(context).pushReplacement(
-      CupertinoPageRoute(
+      MaterialPageRoute(
         builder: (context) => page,
       ),
     );

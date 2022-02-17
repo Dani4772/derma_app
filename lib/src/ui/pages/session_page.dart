@@ -104,7 +104,7 @@ class _SessionPageState extends State<SessionPage>
     );
     _controller = AnimationController(
       duration: const Duration(
-        milliseconds: 200,
+        milliseconds: 10,
       ),
       vsync: this,
     )..repeat();
@@ -142,15 +142,18 @@ class _SessionPageState extends State<SessionPage>
         debugPrint('appLifeCycleState inactive');
         break;
       case AppLifecycleState.resumed:
+        ScreenBrightness().resetScreenBrightness();
         final result=await cancelDialog(context);
         if(result){
           AppNavigation.to(context, CompleteSessionScreen());
         }
-        start();
+        ScreenBrightness().setScreenBrightness(1.0);
+       await start();
         debugPrint('appLifeCycleState resumed');
         break;
       case AppLifecycleState.paused:
-        stop();
+        ScreenBrightness().resetScreenBrightness();
+        await stop();
 
         break;
       case AppLifecycleState.detached:
@@ -166,10 +169,12 @@ class _SessionPageState extends State<SessionPage>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: ()async {
+        ScreenBrightness().resetScreenBrightness();
         await stop();
         final _finished=await cancelDialog(context);
         if(!_finished){
-          start();
+          ScreenBrightness().setScreenBrightness(1.0);
+          await start();
           return _finished;
 
         }
@@ -198,11 +203,13 @@ class _SessionPageState extends State<SessionPage>
                   children: [
 
                      ButtonWidget(waitForAction: (isPaused)
-                     {
+                     async {
                        if (!isPaused) {
-                         start();
+                         ScreenBrightness().setScreenBrightness(1.0);
+                       await  start();
                        } else {
-                        stop();
+                         ScreenBrightness().resetScreenBrightness();
+                        await stop();
                        }
                        isPaused = !isPaused;
                        setState(() {});
