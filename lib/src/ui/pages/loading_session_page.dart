@@ -81,8 +81,8 @@ class _LoadingSessionState extends State<LoadingSession> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 25,right: 102,left: 111,bottom:30),
-              child: Image.asset('assets/loading.png',width: 215,height: 272.68,),
+              padding: const EdgeInsets.only(top: 45,right: 102,left: 111,bottom:30),
+              child: Image.asset('assets/loading.gif',width: 215.33,height: 212.68,),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 55,right: 55),

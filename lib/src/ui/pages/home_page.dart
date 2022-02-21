@@ -2,6 +2,7 @@ import 'package:derma/src/base/assets.dart';
 import 'package:derma/src/base/nav.dart';
 import 'package:derma/src/base/themes.dart';
 import 'package:derma/src/ui/pages/loading_session_page.dart';
+import 'package:derma/src/ui/pages/video_play_page.dart';
 import 'package:derma/src/ui/widgets/button_widget.dart';
 import 'package:derma/src/ui/widgets/check_box_widget.dart';
 import 'package:derma/src/ui/widgets/dropdown_widget.dart';
@@ -71,17 +72,22 @@ class _HomePageState extends State<HomePage> {
                     fit: BoxFit.cover
                 )
               ),
-              child: Container(
-                height: 89,
-                width: 89,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: const Icon(
-                  Icons.play_arrow,
-                  size: 70,
-                  color: Color(0xffEB008B),
+              child: InkWell(
+                onTap: (){
+                  AppNavigation.to(context, const VideoPlayerPage());
+                },
+                child: Container(
+                  height: 89,
+                  width: 89,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.play_arrow,
+                    size: 70,
+                    color: Color(0xffEB008B),
+                  ),
                 ),
               ),
             ),

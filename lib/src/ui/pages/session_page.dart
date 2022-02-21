@@ -52,9 +52,9 @@ class _SessionPageState extends State<SessionPage>
   void _startVibration() {
     if (widget.vibrationEnabled) {
       _vibrationTimer = Timer.periodic(
-        const Duration(milliseconds: 300),
-        (timer) async {
-          await Vibrate.vibrate();
+        const Duration(milliseconds: 175),
+        (timer)  {
+           Vibrate.feedback(FeedbackType.warning);
         },
       );
     }
