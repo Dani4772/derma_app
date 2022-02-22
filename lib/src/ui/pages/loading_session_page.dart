@@ -120,7 +120,7 @@ class _LoadingSessionState extends State<LoadingSession> {
                roundedEdges: const Radius.circular(10),
                totalSteps: 100,
                currentStep: progress,
-               size: 15,
+               size: 15.62,
                padding: 0,
                selectedColor: Colors.yellow,
                unselectedColor: Colors.cyan,
