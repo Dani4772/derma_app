@@ -10,3 +10,8 @@ const kDropDownTextStyle = TextStyle(
 const kFont18 = TextStyle(fontSize: 18);
 
 const kDescriptionTextColor = Color(0xFF707070);
+
+const videoUrl='https://dermaintroduction.000webhostapp.com/DermaIntroduction/DermaIntroduction.mp4';
+
+
+const videoControlerColor=Colors.grey;

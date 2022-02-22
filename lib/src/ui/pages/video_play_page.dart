@@ -1,8 +1,11 @@
-import 'dart:developer';
+import 'dart:async';
 
+import 'package:derma/src/base/nav.dart';
+import 'package:derma/src/base/themes.dart';
+import 'package:derma/src/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:video_player/video_player.dart';
 
 class VideoPlayerPage extends StatefulWidget {
   const VideoPlayerPage({Key? key}) : super(key: key);
@@ -11,50 +14,195 @@ class VideoPlayerPage extends StatefulWidget {
   _VideoPlayerPageState createState() => _VideoPlayerPageState();
 }
 
-class _VideoPlayerPageState extends State<VideoPlayerPage> {
+// https://www.youtube.com/watch?v=HgW4EX_i_hA
 
-  late YoutubePlayerController controller;
+class _VideoPlayerPageState extends State<VideoPlayerPage> {
+  late VideoPlayerController _controller;
+  bool _showControls = true;
+
+  late Timer _controlsTimer;
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,overlays: []);
-    controller= YoutubePlayerController(
-      initialVideoId: 'HgW4EX_i_hA',
-      params: const YoutubePlayerParams(
-        showControls: true,
-        showFullscreenButton: true,
-        desktopMode: false,
-        privacyEnhanced: true,
-        useHybridComposition: true
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+    _controller = VideoPlayerController.network(videoUrl)
+      ..initialize().then((_) {
+        setState(() {});
+      })
+      ..play()
+      ..addListener(checkVideo);
+    _controlsTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      setState(() {
+        _showControls = false;
+      });
+    });
 
-      ),
-    );
-    controller.onEnterFullscreen = () {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-      log('Entered Fullscreen');
-    };
-    controller.onExitFullscreen = () {
-      log('Exited Fullscreen');
-    };
-    // TODO: implement initState
     super.initState();
   }
+
+  void checkVideo() {
+    if(_controller.value.position == const Duration(seconds: 0, minutes: 0, hours: 0)) {
+      debugPrint('video Started');
+      return;
+    }
+    if (_controller.value.position == _controller.value.duration) {
+      debugPrint('setState Called');
+      Navigator.pop(context);
+    }
+  }
+
   @override
   void dispose() {
-    // TODO: implement dispose
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,overlays: SystemUiOverlay.values);
-    controller.close();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    _controlsTimer.cancel();
+    _controller.removeListener(checkVideo);
+    _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    const play=YoutubePlayerIFrame();
-    return YoutubePlayerControllerProvider(controller: controller, child: Container(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: _controller.value.isInitialized
+          ? GestureDetector(
+        onTap: () => setState(
+              () => _showControls = !_showControls,
+        ),
+        child: Stack(
+          children: [
+            Center(
+              child: AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              ),
+            ),
+            if (_showControls)
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //
 
-      child: play,
-    ));
+                    GestureDetector(
+                      onTap: () {
+                        _controller.seekTo(
+                          Duration(
+                            seconds:
+                            _controller.value.position.inSeconds - 10,
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 45,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: videoControlerColor,
+                        ),
+                        child: const Icon(
+                          Icons.fast_rewind,
+                          size: 25,
+                          color: Colors.white, // const Color(0xFFEB008B),
+                        ),
+                      ),
+                    ),
+
+                   const SizedBox(
+                      width: 8,
+
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _controller.value.isPlaying
+                              ? _controller.pause()
+                              : _controller.play();
+                        });
+                      },
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: videoControlerColor,
+                        ),
+                        child: Icon(
+                          _controller.value.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          size: 40,
+                          color: Colors.white, // const Color(0xFFEB008B),
+                        ),
+                      ),
+                    ),
+
+                    //
+
+                    const SizedBox(
+                      width: 8,),
+                    GestureDetector(
+                      onTap: () {
+                        _controller.seekTo(
+                          Duration(
+                            seconds:
+                            _controller.value.position.inSeconds + 10,
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 45,
+                        width: 45,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: videoControlerColor,
+                        ),
+                        child: const Icon(
+                          Icons.fast_forward,
+                          size: 25,
+                          color: Colors.white, // const Color(0xFFEB008B),
+                        ),
+                      ),
+                    ),
+
+                    //
+                  ],
+                ),
+              ),
+            if (_showControls)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: VideoProgressIndicator(
+                  _controller,
+                  allowScrubbing: true,
+                  colors: const VideoProgressColors(
+                    playedColor: AppTheme.pinkColor,
+                    bufferedColor: Colors.grey,
+                    backgroundColor: AppTheme.blueColor,
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20, horizontal: 30),
+                ),
+              ),
+          ],
+        ),
+      )
+          : const Center(
+        child: CircularProgressIndicator(
+          color: AppTheme.pinkColor,
+        ),
+      ),
+    );
   }
+
+
 }

@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Derma',
+      title: 'Derma ',
       theme: AppTheme.lightTheme,
       routes: AppNavigation.routes,
       home: const HomePage(),
