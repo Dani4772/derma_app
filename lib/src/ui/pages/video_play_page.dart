@@ -19,7 +19,7 @@ class VideoPlayerPage extends StatefulWidget {
 class _VideoPlayerPageState extends State<VideoPlayerPage> {
   late VideoPlayerController _controller;
   bool _showControls = true;
-
+  bool _isEnded=false;
   late Timer _controlsTimer;
 
   @override
@@ -50,8 +50,12 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
       return;
     }
     if (_controller.value.position == _controller.value.duration) {
-      debugPrint('setState Called');
-      Navigator.pop(context);
+      if (!_isEnded) {
+        debugPrint('setState Called');
+        Navigator.pop(context);
+      }
+      _isEnded = true;
+
     }
   }
 
@@ -80,6 +84,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
         ),
         child: Stack(
           children: [
+
             Center(
               child: AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,
@@ -193,6 +198,12 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                       vertical: 20, horizontal: 30),
                 ),
               ),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(onPressed: (){
+                Navigator.pop(context);
+              }, icon: const Icon(Icons.close,color: Colors.white,)),
+            )
           ],
         ),
       )
